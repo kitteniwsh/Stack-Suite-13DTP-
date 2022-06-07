@@ -8,12 +8,12 @@
     <title>stAk CTF</title>
 </head>
 <body>
-  {% if auth == "0" %}
-    {% include 'nav.html' %}
+  {% if current_user.is_authenticated %}
+    {% include 'navL.html' %}
 
 
   {% else %}
-    {% include 'navL.html' %}
+    {% include 'nav.html' %}
 
   {% endif %}
   {% block content %}

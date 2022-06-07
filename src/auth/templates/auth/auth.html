@@ -9,11 +9,11 @@
 </head>
 <body>
 
-  {% if auth == "0" %}
-    {% include 'nav.html' %}
+  {% if current_user.is_authenticated %}
+    {% include 'navL.html' %}
 
   {% else %}
-    {% include 'navL.html' %}
+    {% include 'nav.html' %}
 
   {% endif %}
   {% block content %}
@@ -31,7 +31,7 @@
         {{wtf.form_field(form.username)}}
         {{wtf.form_field(form.password)}}
 
-        <p style = "text-align:center">Status: {{ lg }}</p>
+        <p >Status: {{ lg }}</p>
 
         {{wtf.form_field(form.remember)}}
         <input style = "margin-top:5%" type="submit" value="Verify" class="Verify">

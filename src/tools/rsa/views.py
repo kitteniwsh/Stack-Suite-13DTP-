@@ -1,12 +1,15 @@
 from flask import render_template, session, redirect, request
 from .rsascripts import *
+
+from flask_login import login_required
+
+@login_required
 def rsa():
-    if not session["authed"]:
-        return redirect("/authenticate")
+
     if request.method == "GET":
         return render_template("rsa/rsa.html", c="")
     if request.method == "POST":
-        
+
         n =request.form.get('n')
         e = request.form.get('e')
         m = request.form.get('m')
@@ -20,7 +23,7 @@ def rsa():
         p =request.form.get('p')
         q = request.form.get('q')
         e = request.form.get('E')
-        
+
         TOT = totFromPQ(p, q, e)
 
 
@@ -37,8 +40,5 @@ def rsa():
             else:
                 success = "Success!"
         else:
-            success= "Success!"        
+            success= "Success!"
         return render_template("rsa/rsa.html", c=c, m=M, TOT = TOT, PEM=PEM, ow=ow, ME=ME, success=success)
-        
-    
-    
