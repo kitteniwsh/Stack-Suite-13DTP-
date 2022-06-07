@@ -24,18 +24,16 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/auth/auth.css') }}">
 
     <h1 style="text-align:center; margin-top:5%">This action requires authentication.</h1>
-      <form method="POST" action="/authenticate">
+      <form method="POST" action="/register">
         {{form.hidden_tag()}}
         <div style="width: 30%; margin:auto; margin-top:5%">
+        {{wtf.form_field(form.email)}}
 
         {{wtf.form_field(form.username)}}
         {{wtf.form_field(form.password)}}
 
-        <p style = "text-align:center">Status: {{ lg }}</p>
 
-        {{wtf.form_field(form.remember)}}
-        <input style = "margin-top:5%" type="submit" value="Verify" class="Verify">
-        <button  class = "Verify" onclick="location.href='/register'" style = "width:140px">Register</button>
+        <input style = "margin-top:5%; width:230px" type="submit" value="Create account" class="Verify">
 
         </div>
 

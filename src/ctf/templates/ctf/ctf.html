@@ -6,17 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <title>stAk CTF</title>
+    <style>
+
+    </style>
 </head>
 <body>
-    <div class="navbar">
-        <ul>
-            <li><a href="/">home</a></li>
-            <li><a href="/ctf">ctf</a></li>
-            <li><a href="/authenticate">authenticate</a></li>
-            <li><a href="/endsession">endsession</a></li>
-        </ul>
-    </div>
-    <h1>stAk - CTF Team</h1>
-    <a href="/tools">tools</a>
+  {% if auth == "0" %}
+    {% include 'nav.html' %}
+
+
+  {% else %}
+    {% include 'navL.html' %}
+
+  {% endif %}
+  {% block content %}
+  {% endblock %}
+    <h1 style = "text-align:center">Cryptography</h1>
+    <p style = "margin: 3%; text-align:center">Here you wil find an assortment of cryptography tools (mainly rsa-based).  <br>Under Inventory is a detailed explanation of every attack used on this website, as well as an overview of what to expect in the  future!</p>
+    <div class="container">
+    <button  class = "button" onclick="location.href='/tools'">Tools</button>
+    <button  class = "button" onclick="location.href='/inventory'">Inventory</button>
+  </div>
+    <br>
+
 </body>
 </html>

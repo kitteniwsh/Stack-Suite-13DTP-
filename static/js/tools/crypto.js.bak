@@ -25,21 +25,12 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     var a = $(".hexx .input #a");
-    var hexx = () => {
-        if(a.val()[0] == "0" && a.val()[1] == "x"){
-          res= parseInt(a.val(), 16);
-        }else{
-          res = parseInt(a.val()).toString(16);
+    var xor = () => {
+        res= parseInt(a, 16);
 
-        }
-        if(res.toString() == "NaN"){
-          $(".hexx .output").html("Malformed input");
-        }else{
-          $(".hexx .output").html(res);
-        }
-
+        $(".xor .output").html(res);
     };
-    a.on("input change", hexx);
+    a.on("input change", xor);
     $("textarea").each(function () {
         this.setAttribute("style", "height:" + (this.scrollHeight) + "px;overflow-y:hidden;");
     }).on("input", function () {

@@ -8,15 +8,19 @@
     <title>stAk CTF</title>
 </head>
 <body>
-    <div class="navbar">
-        <ul>
-            <li><a href="/">home</a></li>
-            <li><a href="/ctf">ctf</a></li>
-            <li><a href="/authenticate">authenticate</a></li>
-            <li><a href="/endsession">endsession</a></li>
-        </ul>
-    </div>
+  {% if auth == "0" %}
+    {% include 'nav.html' %}
+
+
+  {% else %}
+    {% include 'navL.html' %}
+
+  {% endif %}
+  {% block content %}
+  {% endblock %}
     <h1>stAk - CTF Tools</h1>
     <a href="/tools/crypto">General cryptography tools</a>
+	<br>
+	<a href="/tools/rsa">Rsa tools</a>
 </body>
 </html>

@@ -11,16 +11,14 @@
     <title>Crypto Tools</title>
 </head>
 <body>
-  {% if auth == "0" %}
-    {% include 'nav.html' %}
-
-
-  {% else %}
-    {% include 'navL.html' %}
-
-  {% endif %}
-  {% block content %}
-  {% endblock %}
+    <div class="navbar">
+        <ul>
+            <li><a href="/">home</a></li>
+            <li><a href="/ctf">ctf</a></li>
+            <li><a href="/authenticate">authenticate</a></li>
+            <li><a href="/endsession">endsession</a></li>
+        </ul>
+    </div>
     <div class="xor">
         <h3>XOR</h3>
         <div class="input">
@@ -29,14 +27,14 @@
         </div>
         <p class="output"></p>
     </div>
-	<div class="hexx">
+	<div class="xor">
         <h3>hex converter</h3>
         <div class="input">
             <textarea id="a"></textarea>
         </div>
         <p class="output"></p>
     </div>
-
-
+	
+	
 </body>
 </html>
