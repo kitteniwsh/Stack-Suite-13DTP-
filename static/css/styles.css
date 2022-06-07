@@ -1,0 +1,22 @@
+.navbar {
+    margin-bottom: 30px;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar li {
+    display: inline;
+}
+
+body {
+    background-color: #242729;
+    color: white;
+}
+
+a {
+    color: #4ddaff;
+}

@@ -1,0 +1,28 @@
+.xor {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.xor .input textarea {
+    overflow-y:hidden;
+    resize: none;
+    border: 2px solid rgb(22, 22, 22);
+    padding: 10px;
+    margin-left: 40px;
+    background-color: #242729;
+    color: white;
+}
+
+.xor .input textarea:hover {
+    border-color: #464646;
+}
+
+.xor .output {
+    background-color: #242729;
+    width: 50%;
+    word-wrap: break-word;
+    color: white;
+}
