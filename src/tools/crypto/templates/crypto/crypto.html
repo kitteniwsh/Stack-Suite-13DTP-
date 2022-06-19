@@ -21,21 +21,36 @@
   {% endif %}
   {% block content %}
   {% endblock %}
-    <div class="xor">
-        <h3>XOR</h3>
-        <div class="input">
-            <textarea id="a"></textarea>
-            <textarea id="b"></textarea>
+
+    <div class="xor" style="text-align:center;">
+        <h2 style  ="margin-left: 10px ;margin-top:   75px ">XOR</h2>
+        <p style="text-align:center">Automatically detects whether input is in ascii, binary or decimal!</p>
+
+        <div class="input" style="text-align:center">
+            <textarea id="a" placeholder="xor input 1"></textarea>
+            <textarea id="b" placeholder="xor input 2"></textarea>
         </div>
-        <p class="output"></p>
+        <p class="output">No input</p>
     </div>
+    <br><br><br><br>
 	<div class="hexx">
-        <h3>hex converter</h3>
-        <div class="input">
+        <h2 style="text-align:center">Hex converter</h2>
+        <p style="text-align:center">To convert decimal to hexadecimal, type a decimal number. To convert hexadecimal to decimal, type 0x followed by a hexadecimal number. </p>
+        <div class="input" style="text-align:center">
             <textarea id="a"></textarea>
         </div>
-        <p class="output"></p>
+        <p class="output" style="text-align:center" > No input</p>
     </div>
+    <br><br><br><br>
+
+    <div class="b64">
+          <h2 style="text-align:center">Base 64 converter</h2>
+          <p style="text-align:center">To convert to base64, preface the input with ~. Use normally to convert from base64.</p>
+          <div class="input" style="text-align:center">
+              <textarea id="a"></textarea>
+          </div>
+          <p class="output" style="text-align:center" > No input</p>
+      </div>
 
 
 </body>

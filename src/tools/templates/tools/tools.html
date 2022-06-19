@@ -18,9 +18,12 @@
   {% endif %}
   {% block content %}
   {% endblock %}
-    <h1>stAk - CTF Tools</h1>
-    <a href="/tools/crypto">General cryptography tools</a>
-	<br>
-	<a href="/tools/rsa">Rsa tools</a>
+    <h1  style = "text-align:center">Cryptography Tools</h1>
+    <p style = "margin: 3%; text-align:center">For miscellaneous tools and data conversion, see general. For more advanced RSA exploitation, see RSA. For prime factoring / prime database, see database.</p>
+
+    <div class="container">
+    <button  class = "button" onclick="location.href='/tools/crypto'">General</button>
+    <button  class = "button" onclick="location.href='/tools/rsa'">Rsa</button>
+  </div>
 </body>
 </html>
