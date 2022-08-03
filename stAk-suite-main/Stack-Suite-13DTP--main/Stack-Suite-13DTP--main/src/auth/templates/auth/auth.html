@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% import "bootstrap/wtf.html" as wtf %}
+
+<html lang="en">
+<head>
+
+    <title>stAk CTF</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+</head>
+<body>
+
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/auth/auth.css') }}">
+  {% if current_user.is_authenticated %}
+    {% include 'navL.html' %}
+
+  {% else %}
+    {% include 'nav.html' %}
+
+  {% endif %}
+
+  {% block content %}
+    <h1 style="text-align:center; margin-top:5%">This action requires authentication.</h1>
+      <form method="POST" action="/authenticate">
+        {{form.hidden_tag()}}
+        <div style="width: 30%; margin:auto; margin-top:5%">
+        {{wtf.form_field(form.username, class_="form-control")}}
+        {{wtf.form_field(form.password)}}
+
+        <p >Status: {{ lg }}</p>
+
+        {{wtf.form_field(form.remember)}}
+        <input style = "margin-top:5%" type="submit" value="Verify" class="Verify">
+        <button  class = "Verify" onclick="location.href='/register'" style = "width:140px">Register</button>
+
+        </div>
+
+	  </form>
+
+    <p style = "margin-left:10%"> {{ success }}</p>
+  {% endblock %}
+</body>
+</html>

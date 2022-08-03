@@ -75,11 +75,12 @@ def minuteE(e, c, n):
     if("Malformed input" in (n, e, c)):
        return "Malformed input"
     try:
-        assert pow(c, e) < n
         assert e ==3
+        assert pow(c, e) < n
+
     except AssertionError:
         return "Attack not applicable"
-    
+
     m = iroot(3, c)
     return decr(m)
 def wiener(e, n, c):
@@ -95,11 +96,14 @@ def wiener(e, n, c):
 
 def pemmish(x):
     """returns n, e, p, q, d as applicable"""
-    try:
-        pk = RSA.importKey(x)
-    except ValueError or TypeError:
-        return "Incorrect format"
-    if(pk.has_private()):
-        return [pk.n, pk.e, pk.p, pk.q, pk.d]
+    if(x is not None):
+        try:
+            pk = RSA.importKey(x)
+        except ValueError or TypeError:
+            return "Incorrect format"
+        if(pk.has_private()):
+            return [pk.n, pk.e, pk.p, pk.q, pk.d]
+        else:
+            return [pk.n, pk.e]
     else:
-        return [pk.n, pk.e]
+        return "Awaiting input"

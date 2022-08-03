@@ -35,10 +35,12 @@ def rsa():
         success = "Awaiting input"
         if(ow == "Attack not applicable" or ow == "Malformed input"):
             ME = minuteE(eee, ccc, nnn)
-            if(ME == "Attack not applicable" or ME == "Malformed input"):
+            if(ME == "Attack not applicable" or ME == "Malformed input" or ME == "Not required"):
                 success == "Failed"
             else:
                 success = "Success!"
+                ow = ""
         else:
-            success= "Success!"
+            ME = ""
+            success = "Success!"
         return render_template("rsa/rsa.html", c=c, m=M, TOT = TOT, PEM=PEM, ow=ow, ME=ME, success=success)

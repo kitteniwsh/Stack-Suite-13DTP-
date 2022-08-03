@@ -33,8 +33,15 @@ def authenticate():
         user = User.query.filter_by(username=form.username.data).first()
         if user:
             if check_password_hash(user.password, form.password.data):
-                login_user(user, remember=form.remember.data)
-                return redirect('/')
+                if(user.perms):
+                    login_user(user, remember=form.remember.data)
+                    return redirect('/')
+                else:
+                    if(user.checked):
+                        return render_template('/auth/auth.html', form=form, lg= "Your account was not verified. Please contact an administrator for futher inquiries.")
+                    else:
+                        return render_template('/auth/auth.html', form=form, lg= "Your account is still being verified. Please try again later!")
+
 
         return render_template('/auth/auth.html', form=form, lg= "Incorrect username or password")
         #return '<h1>' + form.username.data + ' ' + form.password.data + '</h1>'
@@ -47,12 +54,11 @@ def register():
 
     if form.validate_on_submit():
         hashed_password = generate_password_hash(form.password.data, method='sha256')
-        new_user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        new_user = User(username=form.username.data, email=form.email.data, password=hashed_password, perms = 0, checked = False)
         db.session.add(new_user)
         db.session.commit()
-        login_user(new_user)
 
-        return redirect('/')
+        return redirect('/authenticate')
         #return '<h1>' + form.username.data + ' ' + form.email.data + ' ' + form.password.data + '</h1>'
 
     return render_template('/auth/Nauth.html', form=form)

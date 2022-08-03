@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/tools/crypto.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="{{ url_for('static', filename='js/tools/crypto.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/tools/rsa.js') }}"></script>
     <title>Rsa Tools</title>
 </head>
 <body>
@@ -21,74 +21,102 @@
   {% endif %}
   {% block content %}
   {% endblock %}
-    <form action="/tools/rsa" method="post">
+  <div class = "container">
+  <select id='menuHandler' onchange="cS()" class= "select_mate">
+     <option value='Encrypt'> Encrypt</option>
+     <option value='Decrypt'>Decrypt</option>
+     <option value='Totient'>Generate Totient</option>
+     <option value='PEM'>PEM decoder</option>
+     <option value='automatic'>Automatic exploiter</option>
 
-        <h3>Encrypt</h3>
+
+
+</select>
+</div>
+<div id="Encrypt"  class="setting">
+    <form action="/tools/rsa" method="post" >
+
+        <h1>Encrypt</h1>
         <div class="input">
             <textarea name="n", placeholder="n"></textarea>
             <textarea name="e", , placeholder="e"></textarea>
-			<textarea name="m" , placeholder="message (as a string)"></textarea>
-			<input type="submit">
+			<textarea name="m" , placeholder="message"></textarea>
+      <br><br>
+      <input type="submit" class="submitbutton">
         </div>
         <p class="output"></p>
-    </div>
-	Ciphertext: {{c }}
+	<p>Ciphertext: {{c }}</p>
+</form>
+</div>
+
+<div id="Decrypt" class="setting">
 
 	<form action="/tools/rsa" method="post">
 
-        <h3>Decrypt</h3>
+        <h1>Decrypt</h1>
         <div class="input">
             <textarea name="N", placeholder="n"></textarea>
             <textarea name="D", , placeholder="d"></textarea>
-			<textarea name="C" , placeholder="ciphertext)"></textarea>
-			<input type="submit">
+			<textarea name="C" , placeholder="ciphertext"></textarea>
+      <br><br>
+			<input type="submit" class="submitbutton">
         </div>
         <p class="output"></p>
-    </div>
-	Plaintext: {{m}}
+	<p>Plaintext: {{m}}</p>
+</form>
+</div>
+
+<div id="Totient" class="setting">
 
 	<form action="/tools/rsa" method="post">
 
-        <h3>Totient generator</h3>
+        <h1>Totient generator</h1>
         <div class="input">
             <textarea name="p", placeholder="p"></textarea>
             <textarea name="q", , placeholder="q"></textarea>
 			<textarea name="E", , placeholder="e"></textarea>
-
-			<input type="submit">
+      <br><br>
+			<input type="submit" class="submitbutton">
         </div>
         <p class="output"></p>
-    </div>
-	Totient: {{TOT}}
+	<p>Totient: {{TOT}}</p>
+</form>
+</div>
+
+<div id="PEM" class="setting">
 
 	<form action="/tools/rsa" method="post">
 
-        <h3>PEM decoder</h3>
+        <h1>PEM decoder</h1>
         <div class="input">
             <textarea name="pem", placeholder="PEM CONTENT"></textarea>
-
-			<input type="submit">
+            <br><br>
+			<input type="submit" class="submitbutton">
         </div>
         <p class="output"></p>
-    </div>
-	N, E, P, Q and D as applicable: {{PEM}}
+	<p>N, E, P, Q and D as applicable: {{PEM}}</p>
+</form>
+</div>
+
+<div id="automatic" class="setting">
 
 	<form action="/tools/rsa" method="post">
 
-        <h3>MUSH general rsa cracker</h3>
+        <h1>Automatic RSA exploiter</h1>
         <div class="input">
             <textarea name="eee", placeholder="e"></textarea>
             <textarea name="nnn", placeholder="n"></textarea>
             <textarea name="ccc", placeholder="c"></textarea>
-
-			<input type="submit">
+              <br><br>
+			      <input type="submit" class="submitbutton">
         </div>
         <p class="output"></p>
-    </div>
-	OWIENER: {{ow}}
-	<br>
-	MinuteE: {{ME}}
-	<br>
-	Status: {{success}}
+    </form>
+	<p>Status: {{success}}</p>
+  {% if success == "Success!" %}
+
+  <p>Results: {{ow}} {{ME}}</p>
+    {% endif %}
+</div>
 </body>
 </html>
