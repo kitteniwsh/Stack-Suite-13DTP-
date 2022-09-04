@@ -1,0 +1,18 @@
+{% extends 'admin/master.html' %}
+{% block body %}
+
+    <h1>Admin Panel</h1>
+    <p style = "text-align:center; margin:5%;">
+        Hello wonderful administrator!<br>
+        To manage/verify users, go to the manage users page. <br>
+        The checked value determines whether a user is informed of their verification or not when logging in. <br>
+        A perms value of 0 indicates unverified, 1 is verified and 2 is admin.<br>
+        The email and username are also editable.
+        <br><br>
+        Happy admining!!
+
+    </p>
+    <div class="container">
+    <button  class = "button" onclick="location.href='/admin/user'" style="width:200px">Users</button>
+    </div>
+{% endblock body %}

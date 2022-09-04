@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tools/crypto.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/tools/crypto.js') }}"></script>
+    <title>Crypto Tools</title>
+</head>
+<body>
+    <div class="navbar">
+        <ul>
+            <li><a href="/">home</a></li>
+            <li><a href="/ctf">ctf</a></li>
+            <li><a href="/authenticate">authenticate</a></li>
+            <li><a href="/endsession">endsession</a></li>
+        </ul>
+    </div>
+    <div class="xor">
+        <h3>XOR</h3>
+        <div class="input">
+            <textarea id="a"></textarea>
+            <textarea id="b"></textarea>
+        </div>
+        <p class="output"></p>
+    </div>
+	<div class="xor">
+        <h3>hex converter</h3>
+        <div class="input">
+            <textarea id="a"></textarea>
+        </div>
+        <p class="output"></p>
+    </div>
+	
+	
+</body>
+</html>
