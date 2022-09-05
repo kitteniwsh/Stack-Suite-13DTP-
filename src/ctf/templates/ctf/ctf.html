@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>stAk CTF</title>
+    <style>
+
+    </style>
+</head>
+<body>
+  {% if current_user.is_authenticated %}
+    {% include 'navL.html' %}
+
+
+  {% else %}
+    {% include 'nav.html' %}
+
+  {% endif %}
+  {% block content %}
+  {% endblock %}
+    <h1 style = "text-align:center">Cryptography</h1>
+    <p style = "margin: 3%; text-align:center">Here you wil find an assortment of cryptography tools (mainly rsa-based).  <br>Under Inventory is a detailed explanation of every attack used on this website, as well as an overview of what to expect in the  future!</p>
+    <div class="container">
+    <button  class = "button" onclick="location.href='/tools'">Tools</button>
+    <button  class = "button" onclick="location.href='/inventory'">Inventory</button>
+  </div>
+    <br>
+
+</body>
+</html>

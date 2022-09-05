@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>stAk CTF</title>
+</head>
+<body>
+  {% if current_user.is_authenticated %}
+    {% include 'navL.html' %}
+
+
+  {% else %}
+    {% include 'nav.html' %}
+
+  {% endif %}
+  {% block content %}
+  {% endblock %}
+    <h1 style = "text-align:center">Information</h1>
+    <p style = "margin: 3%; text-align:center">
+      Stak suite is a collection of pentesting/ethical hacking tools made for the Stak CTF team.<br>
+      If you are unfamiliar with the term "CTF" (Capture The Flag), it is essentially a competition where players attempt to collect "flags" and submit them for points. These flags are usually hidden in vulnerable websites or programs.
+
+      <br>
+      It could also be used to help developers test for vulnerabilities on other websites, or just for fun/ease of access.
+      <br>
+      Currently only cryptography tools are provided, but much more will be implemented in the future.
+    </p>
+    <p style = "position: fixed; bottom:0;text-align:center; width:100%">Further information: <a href = "https://en.wikipedia.org/wiki/Capture_the_flag_(cybersecurity)"> here</p>
+
+</body>
+</html>
