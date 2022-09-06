@@ -105,7 +105,8 @@ def wiener(e, n, c):
     
 def fermatfactor(n):
         n = parseHex(n)
-
+        if("Malformed input" in n):
+            return "Malformed input"
         a = gmpy2.isqrt(n) + 1
         b = a * a - n
         while not gmpy2.is_square(b):
