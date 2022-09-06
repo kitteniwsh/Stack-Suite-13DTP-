@@ -1,6 +1,5 @@
 from flask import render_template, session, redirect, request
 from .rsascripts import *
-
 from flask_login import login_required
 from models.extensions import db, User, Prime, Composite, t_Primes_Composites
 
@@ -38,8 +37,12 @@ def rsa():
         eee, nnn, ccc = request.form.get('eee'), request.form.get('nnn'), request.form.get('ccc')
         ow = wiener(eee, nnn, ccc)
         success = "Awaiting input"
+        
         if nnn:
-            dbN = Composite.query.filter_by(value=int(nnn)).first()
+            try:
+                dbN = Composite.query.filter_by(value=int(nnn)).first()
+            except:
+                dbN = False
             if(dbN):
                 DBF =  "Factored using database: " + str([i.value for i in dbN.Primes])
                 success = "Success!"
@@ -49,7 +52,13 @@ def rsa():
                 DBF = ""
                 ME = minuteE(eee, ccc, nnn)
                 if(ME == "Attack not applicable" or ME == "Malformed input" or ME == "Not required"):
-                    success == "Failed"
+                    fermat = ntfermat(nnn, 5)
+                    if(fermat != "Attack not applicable"):
+                        success = "Success!"
+                        ow = fermat
+                    else:
+                        success == "Failed"
+                        ow = ""
                 else:
                     success = "Success!"
                     ow = ""
