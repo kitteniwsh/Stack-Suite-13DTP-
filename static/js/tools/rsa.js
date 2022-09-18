@@ -1,5 +1,4 @@
-
-console.log('strfing');
+console.log("strfing");
 function onLoad() {
   document.getElementById("Encrypt").style.display = "none";
   document.getElementById("Decrypt").style.display = "none";
@@ -9,14 +8,14 @@ function onLoad() {
   var pss = sessionStorage.getItem("pastselection");
   var status = document.getElementById("menuHandler");
   status.value = pss;
-  if(pss == null){
+  if (pss == null) {
     status.value = "Encrypt";
   }
   document.getElementById(status.value).style.display = "";
 }
 
 window.onload = onLoad;
-function cS(){
+function cS() {
   var status = document.getElementById("menuHandler");
   document.getElementById("Encrypt").style.display = "none";
   document.getElementById("Decrypt").style.display = "none";
@@ -24,9 +23,6 @@ function cS(){
   document.getElementById("PEM").style.display = "none";
   document.getElementById("automatic").style.display = "none";
 
-
- document.getElementById(status.value).style.display = "";
- sessionStorage.setItem("pastselection", status.value);
-
-
+  document.getElementById(status.value).style.display = "";
+  sessionStorage.setItem("pastselection", status.value);
 }

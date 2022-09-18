@@ -1,13 +1,17 @@
 from flask import render_template, session, redirect, request
 from .rsascripts import *
-
 from flask_login import login_required
+from models.extensions import db, User, Prime, Composite, t_Primes_Composites
 
 @login_required
 def rsa():
 
     if request.method == "GET":
         return render_template("rsa/rsa.html", c="")
+    
+        
+    
+    
     if request.method == "POST":
 
         n =request.form.get('n')
@@ -33,14 +37,41 @@ def rsa():
         eee, nnn, ccc = request.form.get('eee'), request.form.get('nnn'), request.form.get('ccc')
         ow = wiener(eee, nnn, ccc)
         success = "Awaiting input"
-        if(ow == "Attack not applicable" or ow == "Malformed input"):
-            ME = minuteE(eee, ccc, nnn)
-            if(ME == "Attack not applicable" or ME == "Malformed input" or ME == "Not required"):
-                success == "Failed"
-            else:
+        
+        if nnn:
+            try:
+                dbN = Composite.query.filter_by(value=int(nnn)).first()
+            except:
+                dbN = False
+            if(dbN):
+                DBF =  "Factored using database: " + str([i.value for i in dbN.Primes])
                 success = "Success!"
                 ow = ""
+                ME = ""
+            elif(ow == "" or ow == "Malformed input"):
+                DBF = ""
+                ME = minuteE(eee, ccc, nnn)
+                if(ME == "" or ME == "Malformed input" or ME == "Not required"):
+                    fermat = ntfermat(nnn, 5)
+                    if(fermat != "" and fermat !="Malformed input"):
+                        success = "Success!"
+                        ow = fermat
+                    else:
+                        success == "Failed"
+                        ow = ""
+                        
+                else:
+                    success = "Success!"
+                    ow = ""
+            else:
+                DBF = ""
+                ME = ""
+                
+                success = "Success!"
         else:
+            DBF = ""
             ME = ""
-            success = "Success!"
-        return render_template("rsa/rsa.html", c=c, m=M, TOT = TOT, PEM=PEM, ow=ow, ME=ME, success=success)
+            success = "Failed, no input"
+        return render_template("rsa/rsa.html", c=c, m=M, TOT = TOT, PEM=PEM, ow=ow, ME=ME, DBF=DBF, success=success)
+
+        

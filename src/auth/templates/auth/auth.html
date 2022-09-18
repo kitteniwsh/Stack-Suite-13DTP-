@@ -31,13 +31,17 @@
 
         {{wtf.form_field(form.username)}}
         {{wtf.form_field(form.password)}}
-
+          
         <p >{{ lg }}</p>
 
         {{wtf.form_field(form.remember)}}
         <input style = "margin-top:5%" type="submit" value="Verify" class="Verify">
         <button  class = "Verify" onclick="location.href='/register'" style = "width:140px">Register</button>
-
+		<input
+			type="hidden"
+			name="next"
+			value="{{ request.args.get('next', '') }}"
+		/>
         </div>
 
 	  </form>

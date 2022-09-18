@@ -2,13 +2,22 @@ from Cryptodome.Util.number import long_to_bytes, bytes_to_long, inverse
 import owiener
 from Cryptodome.PublicKey import RSA
 import base64
+import math
+import gmpy2
 
+import func_timeout
+        
 def decr(c):
     try:
         return long_to_bytes(c)
     except:
         return "Malformed input"
-
+def ntfermat(f, max_wait):
+    try:
+        return func_timeout.func_timeout(max_wait, fermatfactor, args=[f])
+    except func_timeout.FunctionTimedOut:
+        return ""
+    return ""
 def hexx(n):
     if(type(n)==int):
         return hex(n)
@@ -79,10 +88,10 @@ def minuteE(e, c, n):
         assert pow(c, e) < n
 
     except AssertionError:
-        return "Attack not applicable"
+        return ""
 
     m = iroot(3, c)
-    return decr(m)
+    return decr(m)  
 def wiener(e, n, c):
     e, n, c= [parseHex(i) for i in [e, n, c]]
     if("Malformed input" in (n, e, c)):
@@ -91,8 +100,20 @@ def wiener(e, n, c):
     if d:
         return rsaDecrypt(n, d, c)
     else:
-        return "Attack not applicable"
-
+        return ""
+    
+def fermatfactor(n):
+        n = parseHex(n)
+        if("Malformed input" in [n, ""]):
+            return "Malformed input"
+        a = gmpy2.isqrt(n) + 1
+        b = a * a - n
+        while not gmpy2.is_square(b):
+            a = a + 1
+            b = a * a - n
+        b = gmpy2.isqrt(b)
+        return (int(a + b), int(a - b))
+   
 
 def pemmish(x):
     """returns n, e, p, q, d as applicable"""
@@ -107,3 +128,4 @@ def pemmish(x):
             return [pk.n, pk.e]
     else:
         return "Awaiting input"
+

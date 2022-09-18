@@ -1,11 +1,10 @@
-from flask import render_template, session, redirect, Flask, url_for
+from flask import render_template, session, redirect, Flask, url_for, request
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
-from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import sys
-from models.extensions import db, User
+from models.extensions import db, User, Prime, Composite, t_Primes_Composites
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
 
@@ -14,16 +13,15 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 
 
 class LoginForm(FlaskForm):
-    username = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
-    password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
+    username = StringField('Username', validators=[InputRequired(), Length(min=4, max=15)])
+    password = PasswordField('Password', validators=[InputRequired(), Length(min=8, max=80)])
     remember = BooleanField('remember me')
 
 
 class RegisterForm(FlaskForm):
-    email = StringField('email', validators=[InputRequired(), Email(message='Invalid email'), Length(max=50)])
-    username = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
-    password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
-
+    email = StringField('Email', validators=[InputRequired(), Email(message='Invalid email'), Length(max=50)])
+    username = StringField('Username', validators=[InputRequired(), Length(min=4, max=15)])
+    password = PasswordField('Password', validators=[InputRequired(), Length(min=8, max=80)])
 
 
 def authenticate():
@@ -35,10 +33,14 @@ def authenticate():
             if check_password_hash(user.password, form.password.data):
                 if(user.perms):
                     login_user(user, remember=form.remember.data)
-                    return redirect('/')
+                    nurl = request.form.get("next")
+                    if nurl:
+                        return redirect(nurl)
+                    else:
+                        return redirect('/')
                 else:
                     if(user.checked):
-                        return render_template('/auth/auth.html', form=form, lg= "Your account was not verified. Please contact an administrator for futher inquiries.")
+                        return render_template('/auth/auth.html', form=form, lg= "Your account was not verified. Please contact an administrator for further inquiries.")
                     else:
                         return render_template('/auth/auth.html', form=form, lg= "Your account is still being verified. Please try again later!")
 

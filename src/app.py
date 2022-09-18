@@ -14,6 +14,7 @@ import  flask_login
 from flask_login import login_required, current_user
 from flask_admin import Admin, expose, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
+
 dotenv.load_dotenv("../src/.env")
 
 if "SECRET" not in os.environ:
@@ -68,6 +69,9 @@ login_manager.login_view = 'auth.authenticate'
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+
+
 
 if __name__ == "__main__":
 
