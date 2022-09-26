@@ -26,6 +26,10 @@
     padding-left: 10px;
 
 }
+.Verify:hover {
+  background: #eed6d3;
+
+}
 .control-label{
   background-color: #242729;
   word-wrap: break-word;

@@ -58,8 +58,10 @@ def register():
         hashed_password = generate_password_hash(form.password.data, method='sha256')
         new_user = User(username=form.username.data, email=form.email.data, password=hashed_password, perms = 0, checked = False)
         db.session.add(new_user)
-        db.session.commit()
-
+        try:
+            db.session.commit()
+        except:
+            return render_template('/auth/Nauth.html', form=form, lg = "This email/username is already taken.")
         return redirect('/authenticate')
         #return '<h1>' + form.username.data + ' ' + form.email.data + ' ' + form.password.data + '</h1>'
 
