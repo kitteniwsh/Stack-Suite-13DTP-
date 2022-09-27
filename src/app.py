@@ -6,19 +6,21 @@ from tools import tools
 from about import about
 from info import info
 from inventory import inventory
-import dotenv, os
+import dotenv
+import os
 from flask_sqlalchemy import SQLAlchemy
 from models.extensions import db, User
 from flask_bootstrap import Bootstrap
-import  flask_login
+import flask_login
 from flask_login import login_required, current_user
 from flask_admin import Admin, expose, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
-
+from base.base import error_404
 dotenv.load_dotenv("../src/.env")
 
 if "SECRET" not in os.environ:
     raise Exception("SECRET enviroment variable not found.")
+
 
 class HomeView(AdminIndexView):
 
@@ -29,9 +31,19 @@ class HomeView(AdminIndexView):
             res = False
         return res
 
+    def inaccessible_callback(self, name, **kwargs):
+        """
+            Handle the response to inaccessible views.
+
+            By default, it throw HTTP 403 error. Override this method to
+            customize the behaviour.
+        """
+        return error_404("404")
+
 
 app = Flask(__name__, static_folder="../static")
-admin =Admin(app, base_template='layout.html' , index_view=HomeView(name=' '), template_mode='bootstrap4')
+admin = Admin(app, base_template='layout.html',
+              index_view=HomeView(name=' '), template_mode='bootstrap4')
 login_manager = flask_login.LoginManager()
 
 app.config["SECRET_KEY"] = os.environ["SECRET"]
@@ -60,17 +72,17 @@ class NEWModelView(ModelView):
     list_template = 'listt.html'
     create_template = 'creatt.html'
 
-admin.add_view(NEWModelView(User, db.session)) 
+
+admin.add_view(NEWModelView(User, db.session))
 
 login_manager.init_app(app)
 
 login_manager.login_view = 'auth.authenticate'
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
-
-
 
 
 if __name__ == "__main__":
