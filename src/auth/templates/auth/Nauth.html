@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-{% extends "bootstrap/base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
+
 
 <html lang="en">
+
 <head>
 
-    <title>stAk CTF</title>
+  <title>stAk CTF</title>
 </head>
+
 <body>
 
   {% if auth == "0" %}
-    {% include 'nav.html' %}
+  {% include 'nav.html' %}
 
   {% else %}
-    {% include 'navL.html' %}
+  {% include 'navL.html' %}
 
   {% endif %}
   {% block content %}
@@ -23,25 +24,27 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/auth/auth.css') }}">
 
-    <h1 style="text-align:center; margin-top:5%">This action requires authentication.</h1>
-      <form method="POST" action="/register">
-        {{form.hidden_tag()}}
-        <div style="width: 30%; margin:auto; margin-top:5%">
-        {{wtf.form_field(form.email)}}
+  <h1 style="text-align:center; margin-top:5%">This action requires authentication.</h1>
+  <form method="POST" action="/register">
+    {{form.hidden_tag()}}
+    <div style="width: 30%; margin:auto; margin-top:5%">
+      {{wtf.form_field(form.email)}}
 
-        {{wtf.form_field(form.username)}}
-        {{wtf.form_field(form.password)}}
+      {{wtf.form_field(form.username)}}
+      {{wtf.form_field(form.password)}}
 
 
-        <input style = "margin-top:5%; width:230px" type="submit" value="Create account" class="Verify">
+      <input style="margin-top:5%; width:230px" type="submit" value="Create account" class="Verify">
 
-        </div>
+    </div>
 
-	  </form>
-	<p style="text-align:center; margin-top:1%"> {{lg}} </p>
-    <p style = "margin-left:5%"> {{ success }}</p>
-    <p style="text-align:center; margin-top:1%">Note: All accounts must undergo manual verification by staff. This may take up to 3 days.</h1>
+  </form>
+  <p style="text-align:center; margin-top:1%"> {{lg}} </p>
+  <p style="margin-left:5%"> {{ success }}</p>
+  <p style="text-align:center; margin-top:1%">Note: All accounts must undergo manual verification by staff. This may
+    take up to 3 days.</h1>
 
-  {% endblock %}
+    {% endblock %}
 </body>
+
 </html>

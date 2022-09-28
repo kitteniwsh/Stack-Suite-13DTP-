@@ -35,8 +35,8 @@ class HomeView(AdminIndexView):
         """
             Handle the response to inaccessible views.
 
-            By default, it throw HTTP 403 error. Override this method to
-            customize the behaviour.
+            By default, it throw HTTP 403 error. 
+            Now overidden to throw a HTTP 404 not found error.
         """
         return error_404("404")
 
