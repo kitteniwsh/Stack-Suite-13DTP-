@@ -1,83 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')
+      }}">
     <title>stAk CTF</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css" integrity="sha384-ZPe7yZ91iWxYumsBEOn7ieg8q/o+qh/hQpSaPow8T6BwALcXSCS6C6fSRPIAnTQs" crossorigin="anonymous">
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"
+      integrity="sha384-ZPe7yZ91iWxYumsBEOn7ieg8q/o+qh/hQpSaPow8T6BwALcXSCS6C6fSRPIAnTQs"
+      crossorigin="anonymous">
 
-  <!-- The loading of KaTeX is deferred to speed up page rendering -->
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js" integrity="sha384-ljao5I1l+8KYFXG7LNEA7DyaFvuvSCmedUf6Y6JI7LJqiu8q5dEivP2nDdFH31V4" crossorigin="anonymous"></script>
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"
+      integrity="sha384-ljao5I1l+8KYFXG7LNEA7DyaFvuvSCmedUf6Y6JI7LJqiu8q5dEivP2nDdFH31V4"
+      crossorigin="anonymous"></script>
 
-  <!-- To automatically render math in text elements, include the auto-render extension: -->
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"
+      integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"
+      crossorigin="anonymous"
       onload="renderMathInElement(document.body);"></script>
-</head>
-<body>
-  {% if current_user.is_authenticated %}
+  </head>
+
+  <body>
+    <!-- Display logged in/out navbar -->
+    {% if current_user.is_authenticated %}
+
     {% include 'navL.html' %}
 
+    {% else %}
 
-  {% else %}
     {% include 'nav.html' %}
 
-  {% endif %}
-  {% block content %}
-  {% endblock %}
-    <h1 style = "text-align:center">Inventory</h1>
-    <h2 style = "text-align:center">Intro</h1>
+    {% endif %}
 
-    <p style = "margin: 3%; text-align:center">
-      Here you will find a brief description of attacks used in this program. For these to make any sense, a basic understanding of RSA is required. <br>
-      RSA is an asymmetric encryption scheme. This means that messages are encrypted with a public key, and decrypted with a private key. If this doesn't make sense to you, see the link at the bottom of the page.
-      <br> While RSA is theoretically secure, it is often implemented poorly, with the public private key pair generation having critical vulnerabilities. To obtain a deeper understanding of how these vulnerabilities work, basic knowledge about the RSA cryptosystem is needed.
+    {% block content %}
+    {% endblock %}
+
+
+    <h1 style="text-align:center">Inventory</h1>
+    <h2 style="text-align:center">Intro</h1>
+
+    <!-- I used Katex to display equations -->
+
+    <p style="margin: 3%; text-align:center">
+      Here you will find a brief description of attacks used in this program.
+      For these to make any sense, a basic understanding of RSA is required.
+      <br>
+      RSA is an asymmetric encryption scheme. This means that messages are
+      encrypted with a public key, and decrypted with a private key. If this
+      doesn't make sense to you, see the link at the bottom of the page.
+      <br> While RSA is theoretically secure, it is often implemented poorly,
+      with the public private key pair generation having critical
+      vulnerabilities. To obtain a deeper understanding of how these
+      vulnerabilities work, basic knowledge about the RSA cryptosystem is
+      needed.
       <br>
       <br>
-      The first step in generating a public private key pair is to obtain two large prime numbers. We will call these P and Q.
+      The first step in generating a public private key pair is to obtain two
+      large prime numbers. We will call these P and Q.
       <br>
       Let N = PQ
       <br>
-      Now obtain  λ(n) or lcm(p-1, q-1)
+      Now obtain λ(n) or lcm(p-1, q-1)
       <br>
-      Choose an integer e such that e and  λ(n)  are coprime. This number is usually 65537 as it results in more <a href = "https://en.wikipedia.org/wiki/Hamming_weight"> efficient encryption </a>.
+      Choose an integer e such that e and λ(n) are coprime. This number is
+      usually 65537 as it results in more <a href="https://en.wikipedia.org/wiki/Hamming_weight">
+        efficient encryption </a>.
       <br>
-      Compute d as the modular multiplicative inverse of e λ(n)       or d ≡ e<sup>−1</sup> mod λ(n)
+      Compute d as the modular multiplicative inverse of e λ(n) or d ≡ e<sup>−1</sup>
+      mod λ(n)
       <br>
       The private key is d, and the public key is [N, e]
       <br><br>
-      The main concept in RSA is that it is incredibly difficult for an attacker to obtain p and q given N, however improper prime generation can make this process substantially easier.
+      The main concept in RSA is that it is incredibly difficult for an attacker
+      to obtain p and q given N, however improper prime generation can make this
+      process substantially easier.
 
     </p>
 
-    <h2 style = "text-align:center">Attack 1 - small e large n</h1>
-    <p style = "margin: 3%; text-align:center"> This is a extremely trival attack - it exploits the fact that small messages that use a small public exponent may not "wrap around" - or mathematically: <br>
-    \( m ^e < N  \) and so \( c^ {1 \over e} = m \) <br>
-    - and thus the plaintext can be easily recovered.
+    <h2 style="text-align:center">Attack 1 - small e large n</h1>
+    <p style="margin: 3%; text-align:center"> This is a extremely trival attack
+      - it exploits the fact that small messages that use a small public
+      exponent may not "wrap around" - or mathematically: <br>
+      \( m ^e <N \) and so \( c^ {1 \over e}= m \) <br>
+      - and thus the plaintext can be easily recovered.
     </p>
   </p>
 
-  <h2 style = "text-align:center">Attack 2 - Wiener's</h1>
-  <p style = "margin: 3%; text-align:center"> Wiener's attack is a low private exponent attack - or more simply it attacks public private key pairs where d is small.  <br>
-    The inequality for which d can be efficiently recovered is: \( d < {1 \over 3} N^{1 \over 4} \) <br>
+  <h2 style="text-align:center">Attack 2 - Wiener's</h1>
+  <p style="margin: 3%; text-align:center"> Wiener's attack is a low private
+    exponent attack - or more simply it attacks public private key pairs where d
+    is small. <br>
+    The inequality for which d can be efficiently recovered is: \( d <{1 \over
+      3} N^{1 \over 4} \) <br>
 
-    This attack is more advanced, so I will offer a oversimplified explanation of the attack. For more information visit this <a href = "https://sagi.io/crypto-classics-wieners-rsa-attack/"> website </a>.
+    This attack is more advanced, so I will offer a oversimplified explanation
+    of the attack. For more information visit this <a href="https://sagi.io/crypto-classics-wieners-rsa-attack/">
+      website </a>.
     <br><br>
-    We know that  \( \Phi (N) = (p-1)(q-1)\) <br>
+    We know that \( \Phi (N) = (p-1)(q-1)\) <br>
     Therefore \( p^2 + p ( \Phi(N) - N - 1) -N = 0\). <br>
-    If we knew \(\Phi(N)\) we could simply factor the above quadratic for p1,p2 = p,q. This is not the case however, as we only know N and e.
+    If we knew \(\Phi(N)\) we could simply factor the above quadratic for p1,p2
+    = p,q. This is not the case however, as we only know N and e.
     <br><br>
-    Since \( ed = 1 (mod \Phi (N)) \) , there must exist some integer k such that \(ed = 1 + k\Phi(N)\). <br>
+    Since \( ed = 1 (mod \Phi (N)) \) , there must exist some integer k such
+    that \(ed = 1 + k\Phi(N)\). <br>
     Thus \( {e \over {\Phi (N)}} \approx {k \over d} \) <br>
 
-    Iterating through the convergents of the continued fraction expansion of \( e \over N \) will then eventually give a valid \( k \over d \). <br>
-    This can then be validated through factoring N with \( \Phi (N) \) as mentioned above, where  \( \Phi (N) \)  is of course \( de \over k\).
+    Iterating through the convergents of the continued fraction expansion of \(
+    e \over N \) will then eventually give a valid \( k \over d \). <br>
+    This can then be validated through factoring N with \( \Phi (N) \) as
+    mentioned above, where \( \Phi (N) \) is of course \( de \over k\).
 
 
   </p>
-    <p style = "text-align:center">Further attacks implemented will be documented here. </p>
-    <p style = "text-align:center">What is RSA?: <a href = "https://en.wikipedia.org/wiki/RSA_(cryptosystem)"> here</p>
+  <p style="text-align:center">Further attacks implemented will be documented
+    here. </p>
+  <p style="text-align:center">What is RSA?: <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">
+      here</p>
 
-</body>
+  </body>
 </html>

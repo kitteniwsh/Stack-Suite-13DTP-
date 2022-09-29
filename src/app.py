@@ -8,12 +8,11 @@ from info import info
 from inventory import inventory
 import dotenv
 import os
-from flask_sqlalchemy import SQLAlchemy
 from models.extensions import db, User
 from flask_bootstrap import Bootstrap
 import flask_login
-from flask_login import login_required, current_user
-from flask_admin import Admin, expose, AdminIndexView
+from flask_login import current_user
+from flask_admin import Admin, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 from base.base import error_404
 dotenv.load_dotenv("../src/.env")
@@ -23,11 +22,15 @@ if "SECRET" not in os.environ:
 
 
 class HomeView(AdminIndexView):
+    """Admin view"""
 
     def is_accessible(self):
+        """Checks that the user has administrator permissions"""
         try:
+            # Returns true if user perms are 2, else false
             res = current_user.perms == 2
         except:
+            # No perms, user is logged out
             res = False
         return res
 
@@ -37,6 +40,7 @@ class HomeView(AdminIndexView):
 
             By default, it throw HTTP 403 error. 
             Now overidden to throw a HTTP 404 not found error.
+            This is so that the website doesnt leak the admin route
         """
         return error_404("404")
 
@@ -61,6 +65,8 @@ app.register_blueprint(inventory.blueprint)
 
 
 class NEWModelView(ModelView):
+    """Other admin pages"""
+
     def is_accessible(self):
         try:
             res = current_user.perms == 2
@@ -82,6 +88,7 @@ login_manager.login_view = 'auth.authenticate'
 
 @login_manager.user_loader
 def load_user(user_id):
+    """Returns user given a userid"""
     return User.query.get(int(user_id))
 
 

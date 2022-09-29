@@ -1,21 +1,26 @@
 from Cryptodome.Util.number import long_to_bytes, bytes_to_long, inverse
 import owiener
 from Cryptodome.PublicKey import RSA
-import base64
-import math
 import gmpy2
 
 import func_timeout
 
 
 def decr(c):
+    """Takes a integer c and converts to bytes format"""
     try:
         return long_to_bytes(c)
     except:
+        # Incorrect type or c does not decode properly
         return "Malformed input"
 
 
 def ntfermat(f, max_wait):
+    """
+    Takes in arguments [f] and max wait time.
+    Runs fermatfactor with arguements [f] for a maximum of max_wait seconds
+    Will return "" if timed out
+    """
     try:
         return func_timeout.func_timeout(max_wait, fermatfactor, args=[f])
     except func_timeout.FunctionTimedOut:
@@ -24,18 +29,25 @@ def ntfermat(f, max_wait):
 
 
 def hexx(n):
+    """
+    Takes in a decimal integer n and converts to hexadecimal
+    Will return Malformed input if incorrect chars are used
+    """
     if(type(n) == int):
         return hex(n)
+
     if(type(n) == str):
         try:
+            # Convert to bytes, and then to hexadecimal
             return n.encode('utf-8').hex()
         except:
-            return "Bad input"
+            return "Malformed input"
     else:
         return "Malformed input"
 
 
 def enc(m):
+    """Takes in a str(m), and converts to a decimal integer"""
     try:
         return bytes_to_long(m.encode())
     except:
@@ -43,6 +55,10 @@ def enc(m):
 
 
 def iroot(k, n):
+    """
+    Fast integer root algorithm
+    Returns n root k
+    """
     x, y = n, n + 1
     while x < y:
         y = x
@@ -52,21 +68,38 @@ def iroot(k, n):
 
 
 def parseHex(x):
+    """
+    Returns x if x is a decimal integer
+    Converts x to decimal if x is a hexadecimal integer
+    Returns Malformed input if no input is provided, or a invalid string. 
+    """
     if(x is None):
         return "Malformed input"
     if (type(x) == str):
         if(x[:2] == "0x"):
-            return int(x, 16)
+            try:
+                return int(x, 16)
+            except ValueError:
+                return "Malformed input"
         else:
             try:
                 return int(x)
-            except:
+            except ValueError:
                 return "Malformed input"
     else:
         return x
 
 
 def rsaEncrypt(n, e, m):
+    """
+    Input:
+    Public modulus n
+    Public exponent e
+    Message to be encrypted
+
+    Output:
+    Rsa encrypted decimal integer of the message
+    """
     n, e = (parseHex(i) for i in [n, e])
     if("Malformed input" in (n, e)):
         return "Malformed input"
@@ -75,6 +108,15 @@ def rsaEncrypt(n, e, m):
 
 
 def rsaDecrypt(n, d, c):
+    """
+    Input:
+    Private exponent d
+    Public modulus n
+    Ciphertext
+
+    Output:
+    Decrypted ciphertext (ascii)
+    """
     n, d, c = [parseHex(i) for i in [n, d, c]]
     print(n, d, c)
     if("Malformed input" in (n, d, c)):
@@ -84,6 +126,15 @@ def rsaDecrypt(n, d, c):
 
 
 def totFromPQ(p, q, e):
+    """
+    Input:
+    Primes P and Q
+    Public exponent e
+
+    Output:
+    Carmichael's totient function on p, q and e
+
+    """
     p, q, e = [parseHex(i) for i in [p, q, e]]
     if("Malformed input" in (p, q, e)):
         return "Malformed input"
@@ -92,8 +143,12 @@ def totFromPQ(p, q, e):
 
 
 def minuteE(e, c, n):
+    """
+    returns m when the encrypted message is less than modulus
+    This is because it doesnt wrap around, so a simple cube root works
+    """
+
     e, c, n = [parseHex(i) for i in [e, c, n]]
-    """ returns m when the encrypted message is less than modulus"""
     if("Malformed input" in (n, e, c)):
         return "Malformed input"
     try:
@@ -108,6 +163,11 @@ def minuteE(e, c, n):
 
 
 def wiener(e, n, c):
+    """
+    Performs wieners attack on e, n and c
+    My implementation was a bit too slow, so I used an optimized one
+    from the owiener library
+    """
     e, n, c = [parseHex(i) for i in [e, n, c]]
     if("Malformed input" in (n, e, c)):
         return "Malformed input"
@@ -119,6 +179,9 @@ def wiener(e, n, c):
 
 
 def fermatfactor(n):
+    """
+    Attempts to factor N using fermat factorization
+    """
     n = parseHex(n)
     if("Malformed input" in [n, ""]):
         return "Malformed input"

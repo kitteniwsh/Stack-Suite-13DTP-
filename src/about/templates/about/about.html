@@ -1,40 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+
+  <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')
+      }}">
     <title>stAk CTF</title>
-</head>
-<body>
-  {% if current_user.is_authenticated %}
+  </head>
+
+  <body>
+    <!-- Display logged in/out navbar -->
+
+    {% if current_user.is_authenticated %}
+
     {% include 'navL.html' %}
 
+    {% else %}
 
-  {% else %}
     {% include 'nav.html' %}
 
-  {% endif %}
-  {% block content %}
-  {% endblock %}
-    <h1 style = "text-align:center">About Stak Suite</h1>
-    <p style = "margin: 3%; text-align:center">
-      This website was made by Misha Pavlov, with some inspiration taken from an original idea by James Churchill. <br>
-      This project is currently my work as part of an NCEA assignment. Following NCEA submission in September 2022 there is substantial scope for further <i>collaborative</i> project development, such as implementation of reverse engineering features, virtual image features and  an online SSH environment.
+    {% endif %}
 
+    {% block content %}
+    {% endblock %}
+
+
+    <h1 style="text-align:center">About Stak Suite</h1>
+    <p style="margin: 3%; text-align:center">
+      This website was made by Misha Pavlov, with some inspiration taken from an
+      original idea by James Churchill. <br>
+      This project is currently my work as part of an NCEA assignment. Following
+      NCEA submission in September 2022 there
+      is substantial scope for further <i>collaborative</i> project development,
+      such as implementation of reverse
+      engineering features, virtual image features and an online SSH
+      environment.
     </p>
-    <h2 style = "text-align:center">
+
+    <h2 style="text-align:center">
       About our team:
     </h2>
-      <p style = "text-align:center">
+
+    <p style="text-align:center">
       Misha Pavlov - Cryptography, Web, Forensics, OSINT <br>
       James Churchill - Cryptography, Web, Reverse Engineering, Pwn <br>
       Ava Rider - Reverse Engineering, Pwn <br>
       Finn Robinson - Web, OSINT, Misc, Forensics
-
     </p>
-    <p style = "position: fixed; bottom:0;text-align:center; width:100%">Other websites: <a href = "https://www.ttrss.me"> here</p>
 
-</body>
-</html>
+    <p style="position: fixed; bottom:0;text-align:center; width:100%">Other
+      websites: <a href="https://www.ttrss.me">
+        here</p>
+
+    </body>
+
+  </html>

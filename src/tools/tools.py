@@ -8,4 +8,5 @@ blueprint = Blueprint("tools", __name__, template_folder="templates")
 blueprint.register_blueprint(rsa.blueprint)
 
 blueprint.register_blueprint(crypto.blueprint)
+# Tools page
 blueprint.add_url_rule('/tools', 'tools', views.tools)
