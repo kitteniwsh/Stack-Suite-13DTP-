@@ -7,3 +7,9 @@ Navigate to /deploy
 pip install -r requirements.txt
 
 run app.py
+
+
+
+Admin credentials for testing:
+Username: admin
+Password: adminpassword
