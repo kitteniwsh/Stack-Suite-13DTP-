@@ -11,5 +11,5 @@ run app.py
 
 
 Admin credentials for testing:
-Username: admin
+Username: admin\n
 Password: adminpassword
