@@ -17,6 +17,9 @@ Targeted Tools for RSA: Specialized tools and resources for RSA cryptography, wi
 ## Target Audience
 Stak Suite primarily caters to aspiring developers with an interest in cryptography and members of the creator's personal CTF team. The focus is on maximizing the advantages offered by the application for its users.
 ## Setup and Running the Project
+* Clone and navigate to the repo:
+    `git clone https://github.com/exponent3141/Stack-Suite-13DTP-.git`
+    `cd Stack-Suite-13DTP-\`
 * Install the required dependencies using the Python package manager by running\
     `pip install -r requirements.txt`
 * Once the dependencies are installed, start the application by running:\
