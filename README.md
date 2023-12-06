@@ -2,8 +2,6 @@
 # Stak Suite: Cryptography and Cybersecurity Tools
 
 
-A brief description of what this project does and who it's for
-
 ## Introduction
 
 Stak Suite is an innovative website designed to address common challenges in the field of cryptography, particularly for those participating in Capture The Flag (CTF) cybersecurity competitions. It offers a range of tools and resources for both beginners and experienced users, focusing on simplifying and streamlining the process of identifying and executing cryptographic attacks.
