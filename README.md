@@ -52,9 +52,12 @@ RSA Tools Page:
 * PEM file decoder
 * Automatic RSA exploiter
 ## Additional Features
-Inventory Page: Detailed descriptions of cryptographic attacks used.
-Admin Page: For managing users and understanding database values.
-Help Page: Brief guide on using the website with a FAQ section.
+#### Inventory Page
+Detailed descriptions of cryptographic attacks used.
+#### Admin Page
+For managing users and understanding database values.
+#### Help Page
+Brief guide on using the website with a FAQ section.
 
 ## Technical Aspects
 ### Backend
